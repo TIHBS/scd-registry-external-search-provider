@@ -1,0 +1,19 @@
+ethereum:
+  url: "http://localhost:8545"
+  key:
+    private: "0x534af078a10af8335f6fbab8bfbd9bb13ed30fbb31f73f31c2070cfc5a4ad666"
+  gas:
+    price: 4100000000
+    limit: 900000
+
+  contracts:
+    hello-world: "0x20313D1c772E06F94f038faE8E81EBC1cc88a77B"
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/smart_contract_db
+    username: postgres
+    password: changeme
+  jpa:
+    hibernate:
+      ddl-auto: update
