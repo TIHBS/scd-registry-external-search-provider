@@ -1,5 +1,6 @@
 package com.scdregistry.searchprovider.config
 
+import mu.KLogger
 import org.elasticsearch.client.RestHighLevelClient
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
@@ -13,7 +14,9 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 @Configuration
 @EnableElasticsearchRepositories(basePackages = ["com.scdregistry.searchprovider.repositories"])
 @ComponentScan(basePackages = ["com.scdregistry.searchprovider"])
-class ElasticsearchConfig : AbstractElasticsearchConfiguration() {
+class ElasticsearchConfig(
+    private val logger: KLogger,
+) : AbstractElasticsearchConfiguration() {
 
     @Bean
     @Override

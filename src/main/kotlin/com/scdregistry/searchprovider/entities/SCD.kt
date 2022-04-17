@@ -1,18 +1,20 @@
 package com.scdregistry.searchprovider.entities
 
-import org.springframework.data.annotation.Id
-import org.springframework.data.elasticsearch.annotations.Document
-import org.springframework.data.elasticsearch.annotations.Field
-import org.springframework.data.elasticsearch.annotations.FieldType
+import org.hibernate.search.annotations.Field
+import org.hibernate.search.annotations.Indexed
 
-@Document(indexName = "scd")
+import javax.persistence.Entity
+import javax.persistence.Id
+
+@Entity
+@Indexed(index = "scd")
 data class SCD(
     @Id
     val id: Long,
 
-    @Field(type = FieldType.Text, name = "name")
+    @Field
     var name: String,
 
-    @Field(type = FieldType.Text, name = "author")
+    @Field
     var author: String,
 )
