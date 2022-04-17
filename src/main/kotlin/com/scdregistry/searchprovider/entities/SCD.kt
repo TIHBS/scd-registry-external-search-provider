@@ -1,4 +1,4 @@
-package com.example.kotlin.entities
+package com.scdregistry.searchprovider.entities
 
 import javax.persistence.Column
 import javax.persistence.Entity

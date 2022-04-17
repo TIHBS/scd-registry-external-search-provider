@@ -1,10 +1,10 @@
-package com.example.kotlin
+package com.scdregistry.searchprovider
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class KotlinApplicationTests {
+class SearchproviderApplicationTests {
 
 	@Test
 	fun contextLoads() {

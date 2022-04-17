@@ -1,4 +1,4 @@
-package com.example.kotlin.config
+package com.scdregistry.searchprovider.config
 
 import org.elasticsearch.client.RestHighLevelClient
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,8 +14,6 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 
 
 @Configuration
-@EnableElasticsearchRepositories(basePackages = ["com.baeldung.spring.data.es.repository"])
-@ComponentScan(basePackages = ["com.baeldung.spring.data.es.service"])
 class SearchProviderConfig {
 
     @Bean
@@ -27,7 +25,6 @@ class SearchProviderConfig {
     }
 
     @Bean
-    @Autowired
     fun elasticsearchTemplate(client: RestHighLevelClient): ElasticsearchOperations? {
         return ElasticsearchRestTemplate(client)
     }

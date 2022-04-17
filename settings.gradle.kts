@@ -1,1 +1,1 @@
-rootProject.name = "external-search-provider"
+rootProject.name = "searchprovider"

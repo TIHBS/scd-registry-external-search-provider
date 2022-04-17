@@ -1,11 +1,11 @@
-package com.example.kotlin
+package com.scdregistry.searchprovider
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class KotlinApplication
+class SearchproviderApplication
 
 fun main(args: Array<String>) {
-	runApplication<KotlinApplication>(*args)
+	runApplication<SearchproviderApplication>(*args)
 }

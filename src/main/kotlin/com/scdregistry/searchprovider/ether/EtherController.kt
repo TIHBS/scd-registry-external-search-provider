@@ -1,7 +1,7 @@
-package com.example.kotlin.ether
+package com.scdregistry.searchprovider.ether
 
-import com.example.kotlin.entities.SCD
-import com.example.kotlin.repositories.SCDRepository
+import com.scdregistry.searchprovider.entities.SCD
+import com.scdregistry.searchprovider.repositories.SCDRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Pageable
 import org.springframework.data.elasticsearch.annotations.Document
