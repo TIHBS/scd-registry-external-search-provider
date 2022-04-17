@@ -1,3 +1,5 @@
+elasticsearch:
+  url: localhost:9200
 spring:
-  datasource:
-    url: localhost:9200
+  main:
+    allow-bean-definition-overriding: true

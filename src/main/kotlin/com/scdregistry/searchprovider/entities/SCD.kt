@@ -1,17 +1,18 @@
 package com.scdregistry.searchprovider.entities
 
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Id
+import org.springframework.data.annotation.Id
+import org.springframework.data.elasticsearch.annotations.Document
+import org.springframework.data.elasticsearch.annotations.Field
+import org.springframework.data.elasticsearch.annotations.FieldType
 
-@Entity
+@Document(indexName = "scd")
 data class SCD(
     @Id
     val id: Long,
-    
-    @Column(nullable = false)
+
+    @Field(type = FieldType.Text, name = "name")
     var name: String,
 
-    @Column(nullable = false)
+    @Field(type = FieldType.Text, name = "author")
     var author: String,
 )

@@ -12,7 +12,7 @@ plugins {
 
 group = "com.scdregistry"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_11
+java.sourceCompatibility = JavaVersion.VERSION_15
 
 jib {
     to { image = "external-search-provider" }
@@ -24,23 +24,17 @@ repositories {
 
 dependencies {
     implementation("org.web3j:core:5.0.0")
-    implementation("com.squareup.okhttp3:okhttp:4.9.3")
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.hibernate:hibernate-core")
-    implementation("org.postgresql:postgresql")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.springframework.data:spring-data-elasticsearch:4.3.3")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.hibernate:hibernate-testing")
 }
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "11"
+        jvmTarget = "15"
     }
 }
 
