@@ -1,13 +1,10 @@
 package com.scdregistry.searchprovider.entities
 
-import org.hibernate.search.annotations.Field
-import org.hibernate.search.annotations.Indexed
+import org.springframework.data.annotation.Id
+import org.springframework.data.elasticsearch.annotations.Document
+import org.springframework.data.elasticsearch.annotations.Field
 
-import javax.persistence.Entity
-import javax.persistence.Id
-
-@Entity
-@Indexed(index = "scd")
+@Document(indexName = "scd")
 data class SCD(
     @Id
     val id: Long,
