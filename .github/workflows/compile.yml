@@ -23,10 +23,5 @@ jobs:
       - name: Generate contract wrappers
         run: ./gradlew generateContractWrappers --no-daemon
 
-      - name: Gradle check
-        run: ./gradlew check --no-daemon
-
-      - name: Gradle build
-        run: ./gradlew build --no-daemon
       - name: Jib build
         run: ./gradlew jibDockerBuild --no-daemon
