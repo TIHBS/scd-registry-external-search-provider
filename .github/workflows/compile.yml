@@ -1,0 +1,17 @@
+name: Build
+on:
+  workflow_dispatch:
+  push:
+  pull_request:
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Gradle build
+        run: ./scripts/build/build.sh
+      - name: Jib build
+        run: ./scripts/build/jib.sh

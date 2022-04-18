@@ -32,22 +32,7 @@ class SCDService(
         return scdRepositoryExtended.findByName(name, pageable)
     }
 
-    //  fun fullTextSearch(query: String): List<SCD> {
-    //      val fullTextEntityManager = createFullTextEntityManager()
-    //      val qb: QueryBuilder = fullTextEntityManager
-    //          .searchFactory
-    //          .buildQueryBuilder()
-    //          .forEntity(SCD::class.java)
-    //          .get()
-
-    //      val foodQuery = qb.keyword()
-    //          .onFields("name", "author")
-    //          .matching(query)
-    //          .createQuery()
-
-    //      val fullTextQuery = fullTextEntityManager
-    //          .createFullTextQuery(foodQuery, SCD::class.java)
-
-    //      return fullTextQuery.resultList as List<SCD>
-    //  }
+    fun fullTextSearch(query: String): List<SCD> {
+        return scdRepositoryExtended.fullTextSearch(query)
+    }
 }

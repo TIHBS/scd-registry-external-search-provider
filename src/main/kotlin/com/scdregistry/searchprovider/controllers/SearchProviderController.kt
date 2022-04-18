@@ -2,6 +2,7 @@ package com.scdregistry.searchprovider.controllers
 
 import com.scdregistry.searchprovider.entities.SCD
 import com.scdregistry.searchprovider.services.SCDService
+import com.scdregistry.searchprovider.util.listToPageable
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -11,20 +12,27 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
-import kotlin.random.Random
 
 
 @RestController
 class SearchProviderController @Autowired constructor(
     private val scdService: SCDService
 ) {
-    private val random = Random(234325)
-
     @GetMapping("/")
-    fun getDocument(@RequestParam query: String, pageable: Pageable): ResponseEntity<Page<SCD>> {
-        scdService.save(SCD(random.nextLong(), "Blaaaa", "Bääär"))
-        val result = scdService.findByName(query, pageable)
-        return ResponseEntity.ok(result)
+    fun getDocument(
+        @RequestParam query: String?,
+        @RequestParam name: String?,
+        pageable: Pageable
+    ): ResponseEntity<Page<SCD>> {
+        if (name != null) {
+            val result = scdService.findByName(name, pageable)
+            return ResponseEntity.ok(result)
+        }
+        if (query != null) {
+            val result = scdService.fullTextSearch(query)
+            return ResponseEntity.ok(listToPageable(result, pageable))
+        }
+        return ResponseEntity.ok(listToPageable(emptyList(), pageable))
     }
 
     @PostMapping("/")
