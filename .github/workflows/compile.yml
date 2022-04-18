@@ -11,7 +11,18 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
+      - name: Compile Solidity
+        run: ./gradlew compileSolidity
+      - name: Generate contract wrappers
+        run: ./gradlew generateContractWrappers
+
+      - name: Gradle check
+        run: ./gradlew check
+      - name: Gradle test
+        run: ./gradlew test
+
       - name: Gradle build
-        run: ./scripts/build/build.sh
+        run: ./gradlew build
       - name: Jib build
-        run: ./scripts/build/jib.sh
+        run: ./gradlew jibDockerBuild
