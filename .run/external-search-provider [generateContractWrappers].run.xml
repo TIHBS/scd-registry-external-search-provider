@@ -10,7 +10,7 @@
       </option>
       <option name="taskNames">
         <list>
-          <option value="compileSolidity" />
+          <option value="npmInstallDecentralisedScdRegistry" />
           <option value="generateContractWrappers" />
         </list>
       </option>
