@@ -21,7 +21,7 @@ jobs:
           cache: 'gradle'
 
       - name: Generate contract wrappers
-        run: ./gradlew npmInstallDecentralisedScdRegistry generateContractWrappers -no-daemon
+        run: ./gradlew npmInstallDecentralisedScdRegistry generateContractWrappers
 
       - name: Jib build
-        run: ./gradlew jibDockerBuild --no-daemon
+        run: ./gradlew jibDockerBuild
