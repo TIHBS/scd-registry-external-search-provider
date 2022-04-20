@@ -4,6 +4,15 @@ on:
   push:
   pull_request:
 jobs:
+  check-docker-stack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Start container stack
+        run: docker-compose up -d
   compile:
     runs-on: ubuntu-latest
     steps:
@@ -13,3 +22,13 @@ jobs:
           fetch-depth: 0
           submodules: true
           token: ${{ secrets.ACCESS }}
+      - name: Install npm packages
+        run: npm install
+      - name: "build"
+        run: npm run build
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist
+          retention-days: 5
