@@ -1,11 +1,16 @@
-version: "3.5"
+version: "3.7"
 services:
   external-search-provider:
     container_name: external-search-provider
-    image: external-search-provider
-    ports:
-      - "8080:8080"
+    build:
+      context: .
+      dockerfile: docker/external-search-provider/Dockerfile
     restart: unless-stopped
+    depends_on:
+      - ganache-cli
+    environment:
+      - GANACHE_URL=http://ganache-cli:8545
+
   # Elasticsearch Docker Images: https://www.docker.elastic.co/
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.1.2
@@ -38,6 +43,13 @@ services:
     depends_on:
       - elasticsearch
 
+  ganache-cli:
+    extends:
+      file: external/decentralised-scd-registry/docker-compose.yml
+      service: ganache-cli
+    ports:
+      - 8545:8545
 volumes:
+  ganache_data:
   elasticsearch-data:
     driver: local

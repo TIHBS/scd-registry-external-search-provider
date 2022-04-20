@@ -2,12 +2,14 @@
   "name": "external-search-provider",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "dist/src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "ts-node scripts/post-install.ts",
     "build": "npx tsc",
-    "start": "node dist/main.js"
+    "start": "node dist/src/main.js",
+    "start:contract": "docker-compose -f external/decentralised-scd-registry/docker-compose.yml up",
+    "deploy:contract": "npm run deploy:container --prefix external/decentralised-scd-registry/"
   },
   "repository": {
     "type": "git",
@@ -28,6 +30,7 @@
     "@typescript-eslint/parser": "^5.20.0",
     "app-root-dir": "^1.0.2",
     "chai": "^4.3.6",
+    "cross-env": "^7.0.3",
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
