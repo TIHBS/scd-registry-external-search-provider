@@ -8,8 +8,7 @@ async function main() {
   console.log(url);
   const provider = await ethers.providers.getDefaultProvider(url);
   ethereumConnector.setSigner(provider);
-  const result = await ethereumConnector.query("Name='quaCoin'");
-  console.log(result);
+  ethereumConnector.subscribe();
 }
 
 main().then().catch();
