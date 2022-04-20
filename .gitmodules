@@ -1,3 +1,0 @@
-[submodule "external/decentralised-scd-registry"]
-	path = external/decentralised-scd-registry
-	url = git@github.com:GarondEisenfaust/decentralised-scd-registry.git

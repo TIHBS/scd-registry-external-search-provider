@@ -1,4 +1,4 @@
-name: Build
+name: CI
 on:
   workflow_dispatch:
   push:
@@ -13,15 +13,3 @@ jobs:
           fetch-depth: 0
           submodules: true
           token: ${{ secrets.ACCESS }}
-      - name: Set up JDK 11
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '11'
-          cache: 'gradle'
-
-      - name: Generate contract wrappers
-        run: ./gradlew npmInstallDecentralisedScdRegistry generateContractWrappers
-
-      - name: Jib build
-        run: ./gradlew jibDockerBuild
