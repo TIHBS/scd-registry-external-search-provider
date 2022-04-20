@@ -8,9 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          submodules: true
+          token: ${{ secrets.ACCESS }}
       - name: Start container stack
         run: docker-compose up -d
   compile:
