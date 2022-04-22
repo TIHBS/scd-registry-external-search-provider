@@ -7,6 +7,7 @@ import RegistryDeployment from "../external/decentralised-scd-registry/deploymen
 import { Registry__factory } from "../external/decentralised-scd-registry/src/types/factories/Registry__factory.js";
 import { Client as ElasticsearchClient } from "@elastic/elasticsearch";
 import "dotenv/config";
+import { QueryService } from "./QueryService.js";
 
 function createElasticsearchClient(
   elasticsearchUrl = process.env.ELASTICSEARCH_URL
@@ -41,6 +42,7 @@ function createRegistryContract(
 async function main() {
   const provider = await createProvider();
   const registry = createRegistryContract(provider);
+  const elasticsearchIndex = "scds";
 
   const registryEventListener = new RegistryEventListener(
     registry,
@@ -49,11 +51,15 @@ async function main() {
 
   const elasticsearchClient = createElasticsearchClient();
   registryEventListener.subscribe(
-    new RegistryEventHandler(registry, elasticsearchClient)
+    new RegistryEventHandler(registry, elasticsearchClient, elasticsearchIndex)
   );
   registryEventListener.start();
 
-  const expressServer = new ExpressServer();
+  const queryService = new QueryService(
+    elasticsearchClient,
+    elasticsearchIndex
+  );
+  const expressServer = new ExpressServer(queryService);
 
   expressServer.registerRoutes();
   expressServer.start();
