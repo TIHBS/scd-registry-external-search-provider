@@ -1,5 +1,5 @@
 import { Client as ElasticsearchClient } from "@elastic/elasticsearch";
-import { SCD } from "../external/decentralised-scd-registry-common/SCD";
+import { SCD } from "../external/decentralised-scd-registry-common/src/interfaces/SCD";
 
 export class QueryService {
   private elasticsearchClient: ElasticsearchClient;
@@ -15,9 +15,9 @@ export class QueryService {
     "author",
     // "created_on",
     // "updated_on",
-    //  "life_cycle",
+    "life_cycle",
     "scl",
-    // "blockchain_type",
+    "blockchain_type",
     "blockchain_version",
     "internal_address",
     "metadata",

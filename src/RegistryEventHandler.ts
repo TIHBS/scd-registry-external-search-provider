@@ -2,7 +2,7 @@ import { BigNumber } from "ethers";
 import { Registry } from "../external/decentralised-scd-registry/src/types/Registry.js";
 import { IEventData, IRegistryEventHandler } from "./IRegistryEventHandler.js";
 import { Client as ElasticsearchClient } from "@elastic/elasticsearch";
-import { SCD } from "../external/decentralised-scd-registry-common/SCD";
+import { SCD } from "../external/decentralised-scd-registry-common/src/interfaces/SCD";
 import fetch from "node-fetch";
 
 interface EventData {
