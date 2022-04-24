@@ -26,15 +26,24 @@ export class RegistryEventHandler implements IRegistryEventHandler {
 
   async onEvent(eventData: IEventData): Promise<boolean> {
     const id = (eventData as EventData).id;
-    const scd = await this.fetchSCD(id);
 
-    this.elasticsearchClient.index({
-      index: this.elasticsearchIndex,
-      document: scd,
-    });
-    console.log(`Stored ${scd.name}`);
+    try {
+      const scd = await this.fetchSCD(id);
 
-    return true;
+      this.elasticsearchClient.index({
+        index: this.elasticsearchIndex,
+        document: scd,
+      });
+      console.log(`Stored ${scd.name}`);
+
+      return true;
+    } catch (error) {
+      console.error(
+        `Could not process the SCD with the id ${id} for the following reason:`
+      );
+      console.error(error);
+      return false;
+    }
   }
 
   private async fetchSCD(id: BigNumber): Promise<SCD> {
@@ -45,11 +54,15 @@ export class RegistryEventHandler implements IRegistryEventHandler {
       throw new Error("No SCD with this id exists!");
     }
 
-    const url = process.env.PROXY_URL + onlyMetadata.url;
-    console.log(`Fetching SCD from ${url}`);
-    const scd = await (await fetch(url)).json();
     console.log(
-      `Fetched SCD of a smart contract with the name: ${scd["Name"]} and the Hash ${scd["Hash"]}`
+      `Fetched metadata of an SCD from the blockchain with the name: ${onlyMetadata.name} and the signature: ${onlyMetadata.signature}`
+    );
+
+    const url = onlyMetadata.url;
+    console.log(`Fetching SCD from ${url}`);
+    const scd = (await (await fetch(url)).json()) as SCD;
+    console.log(
+      `Fetched SCD of a smart contract with the name: ${scd.name} and the contract hash: ${scd.hash}`
     );
     return scd;
   }

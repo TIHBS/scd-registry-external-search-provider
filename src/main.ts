@@ -3,7 +3,6 @@ import { RegistryEventListener } from "./RegistryEventListener.js";
 import { ExpressServer } from "./ExpressServer.js";
 import { RegistryEventHandler } from "./RegistryEventHandler.js";
 import { Provider } from "@ethersproject/abstract-provider/lib/index";
-import RegistryDeployment from "../external/decentralised-scd-registry/deployments/ganache-cli/Registry.json";
 import { Registry__factory } from "../external/decentralised-scd-registry/src/types/factories/Registry__factory.js";
 import { Client as ElasticsearchClient } from "@elastic/elasticsearch";
 import "dotenv/config";
@@ -33,7 +32,8 @@ function createRegistryContract(
   provider: Provider,
   contractAddress = process.env.REGISTRY_ADDRESS
     ? process.env.REGISTRY_ADDRESS
-    : RegistryDeployment.address
+    : // This address seems to be the one that is used most of the time when the contract is deployed.
+      "0x222E34DA1926A9041ed5A87f71580D4D27f84fD3"
 ) {
   console.log(`Connecting to Registry contract at ${contractAddress}`);
   return Registry__factory.connect(contractAddress, provider);
