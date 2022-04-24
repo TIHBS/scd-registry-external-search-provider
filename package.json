@@ -5,7 +5,6 @@
   "main": "dist/src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "ts-node scripts/post-install.ts",
     "build": "npx tsc",
     "start": "node dist/src/main.js",
     "start:contract": "docker-compose -f external/decentralised-scd-registry/docker-compose.yml up",
@@ -35,7 +34,6 @@
     "@types/node-fetch": "^2.6.1",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
-    "app-root-dir": "^1.0.2",
     "chai": "^4.3.6",
     "cross-env": "^7.0.3",
     "eslint": "^8.13.0",
