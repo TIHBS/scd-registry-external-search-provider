@@ -6,8 +6,6 @@ services:
       context: .
       dockerfile: docker/external-search-provider/Dockerfile
     restart: unless-stopped
-    depends_on:
-      - ganache-cli
     environment:
       - GANACHE_URL=http://ganache-cli:8545
 
@@ -43,12 +41,6 @@ services:
     depends_on:
       - elasticsearch
 
-  ganache-cli:
-    extends:
-      file: external/decentralised-scd-registry/docker-compose.yml
-      service: ganache-cli
-    ports:
-      - 8545:8545
 volumes:
   ganache_data:
   elasticsearch-data:

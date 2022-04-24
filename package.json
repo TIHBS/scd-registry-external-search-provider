@@ -7,11 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
     "start": "node dist/src/main.js",
-    "start:contract": "docker-compose -f external/decentralised-scd-registry/docker-compose.yml up",
-    "deploy:contract": "npm run deploy:container --prefix external/decentralised-scd-registry/",
     "clean": "npx shx rm -rf dist",
-    "prebuild": "npm run clean",
-    "prestart": "npm run build"
+    "prebuild": "npm run clean"
   },
   "repository": {
     "type": "git",
