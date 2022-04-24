@@ -3,7 +3,7 @@ import { RegistryEventListener } from "./RegistryEventListener.js";
 import { ExpressServer } from "./ExpressServer.js";
 import { RegistryEventHandler } from "./RegistryEventHandler.js";
 import { Provider } from "@ethersproject/abstract-provider/lib/index";
-import { Registry__factory } from "../external/decentralised-scd-registry/src/types/factories/Registry__factory.js";
+import { Registry__factory } from "../external/decentralised-scd-registry-common/src/wrappers/factories/Registry__factory.js";
 import { Client as ElasticsearchClient } from "@elastic/elasticsearch";
 import "dotenv/config";
 import { QueryService } from "./QueryService.js";

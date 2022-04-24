@@ -1,5 +1,5 @@
 import { BigNumber } from "ethers";
-import { Registry } from "../external/decentralised-scd-registry/src/types/Registry.js";
+import { Registry } from "../external/decentralised-scd-registry-common/src/wrappers/Registry.js";
 import { IEventData, IRegistryEventHandler } from "./IRegistryEventHandler.js";
 import { Client as ElasticsearchClient } from "@elastic/elasticsearch";
 import { SCD } from "../external/decentralised-scd-registry-common/src/interfaces/SCD";
