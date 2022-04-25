@@ -12,7 +12,7 @@ jobs:
         with:
           fetch-depth: 0
           submodules: true
-          token: ${{ secrets.CI }}
+          token: ${{ secrets.ACCESS }}
       - name: Start container stack
         run: docker-compose up -d
   compile:
@@ -23,7 +23,7 @@ jobs:
         with:
           fetch-depth: 0
           submodules: true
-          token: ${{ secrets.CI }}
+          token: ${{ secrets.ACCESS }}
       - name: Install npm packages
         run: npm install
       - name: "build"
