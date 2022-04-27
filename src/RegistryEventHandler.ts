@@ -2,7 +2,10 @@ import { BigNumber } from "ethers";
 import { Registry } from "../external/decentralised-scd-registry-common/src/wrappers/Registry.js";
 import { IEventData, IRegistryEventHandler } from "./IRegistryEventHandler.js";
 import { Client as ElasticsearchClient } from "@elastic/elasticsearch";
-import { SCD } from "../external/decentralised-scd-registry-common/src/interfaces/SCD";
+import {
+  SCD,
+  SCDWithID,
+} from "../external/decentralised-scd-registry-common/src/interfaces/SCD";
 import fetch from "node-fetch";
 
 interface EventData {
@@ -30,9 +33,11 @@ export class RegistryEventHandler implements IRegistryEventHandler {
     try {
       const scd = await this.fetchSCD(id);
 
+      const scdWithId: SCDWithID = { id: id, scd: scd };
+
       this.elasticsearchClient.index({
         index: this.elasticsearchIndex,
-        document: scd,
+        document: scdWithId,
       });
       console.log(`Stored ${scd.name}`);
 

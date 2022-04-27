@@ -13,7 +13,11 @@ export class ExpressServer {
 
   constructor(queryService: QueryService, port: number = 3000) {
     this.app = express()
-      .use(cors())
+      .use(
+        cors({
+          origin: "*",
+        })
+      )
       .use(bodyParser.urlencoded({ extended: false }))
       .use(bodyParser.json());
 

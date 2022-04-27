@@ -1,5 +1,7 @@
 version: "3.7"
 services:
+  # It is impossible to store scds with an localhost url when using this comopse file.
+  # Use the external IP of the storage device.
   external-search-provider:
     container_name: external-search-provider
     build:
@@ -7,7 +9,17 @@ services:
       dockerfile: docker/external-search-provider/Dockerfile
     restart: unless-stopped
     environment:
-      - GANACHE_URL=http://ganache-cli:8545
+      - ETHEREUM_NETWORK_URL=http://ganache-cli:8545
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - REGISTRY_ADDRESS=0x222E34DA1926A9041ed5A87f71580D4D27f84fD3
+    ports:
+      - "3000:3000"
+    depends_on:
+      - elasticsearch
+    networks:
+      - decentralised-scd-registry_ethereum-network
+      - host
+      - default
 
   # Elasticsearch Docker Images: https://www.docker.elastic.co/
   elasticsearch:
@@ -30,18 +42,17 @@ services:
     ports:
       - "9200:9200"
       - "9300:9300"
-
-  kibana:
-    container_name: kibana
-    image: docker.elastic.co/kibana/kibana:8.1.2
-    environment:
-      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-    ports:
-      - "5601:5601"
-    depends_on:
-      - elasticsearch
+    networks:
+      - default
 
 volumes:
-  ganache_data:
   elasticsearch-data:
     driver: local
+
+networks:
+  default:
+    driver: bridge
+  decentralised-scd-registry_ethereum-network:
+    external: true
+  host:
+    external: true
