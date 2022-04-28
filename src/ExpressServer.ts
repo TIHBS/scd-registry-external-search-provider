@@ -36,7 +36,13 @@ export class ExpressServer {
 
         console.log(`Request with the following query ${queryStr}`);
         const result = await this.queryService.query(queryStr as string);
-        res.send(result);
+
+        if (req.query.onlyId && req.query.onlyId == "true") {
+          const onlyId = result.map((scdWithId) => scdWithId.id);
+          res.send(onlyId);
+        } else {
+          res.send(result);
+        }
       })
       .use((_req, res) =>
         res.status(404).json({ success: false, error: "Route not found" })
