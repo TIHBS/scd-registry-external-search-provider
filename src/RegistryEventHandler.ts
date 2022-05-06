@@ -7,6 +7,7 @@ import {
   SCDWithID,
 } from "../external/decentralised-scd-registry-common/src/interfaces/SCD";
 import fetch from "node-fetch";
+import { SwarmClient } from "./SwarmClient.js";
 
 interface EventData {
   id: BigNumber;
@@ -15,15 +16,18 @@ interface EventData {
 export class RegistryEventHandler implements IRegistryEventHandler {
   private registry: Registry;
   private elasticsearchClient: ElasticsearchClient;
+  private swarmClient: SwarmClient;
   private elasticsearchIndex: string;
 
   constructor(
     registry: Registry,
     elasticsearchClient: ElasticsearchClient,
+    swarmClient: SwarmClient,
     elasticsearchIndex = "scds"
   ) {
     this.registry = registry;
     this.elasticsearchClient = elasticsearchClient;
+    this.swarmClient = swarmClient;
     this.elasticsearchIndex = elasticsearchIndex;
   }
 
@@ -65,7 +69,14 @@ export class RegistryEventHandler implements IRegistryEventHandler {
 
     const url = onlyMetadata.url;
     console.log(`Fetching SCD from ${url}`);
-    const scd = (await (await fetch(url)).json()) as SCD;
+
+    let scd: SCD;
+    if (url.startsWith("swarm://")) {
+      scd = await this.swarmClient.fetch(url);
+    } else {
+      scd = (await (await fetch(url)).json()) as SCD;
+    }
+
     console.log(
       `Fetched SCD of a smart contract with the name: ${scd.name} and the contract hash: ${scd.hash}`
     );

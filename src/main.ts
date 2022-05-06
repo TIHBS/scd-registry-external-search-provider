@@ -7,6 +7,7 @@ import { Registry__factory } from "../external/decentralised-scd-registry-common
 import { Client as ElasticsearchClient } from "@elastic/elasticsearch";
 import { QueryService } from "./QueryService.js";
 import "dotenv/config";
+import { SwarmClient } from "./SwarmClient.js";
 
 function createElasticsearchClient(
   elasticsearchUrl = process.env.ELASTICSEARCH_URL
@@ -39,6 +40,13 @@ function createRegistryContract(
   return Registry__factory.connect(contractAddress, provider);
 }
 
+function createSwarmClient(): SwarmClient {
+  const swarmUrl = process.env.SWARM_URL
+    ? process.env.SWARM_URL
+    : "http://localhost:1633";
+  return new SwarmClient(swarmUrl);
+}
+
 async function main() {
   const provider = await createProvider();
   const registry = createRegistryContract(provider);
@@ -50,8 +58,14 @@ async function main() {
   );
 
   const elasticsearchClient = createElasticsearchClient();
+  const swarmClient = createSwarmClient();
   registryEventListener.subscribe(
-    new RegistryEventHandler(registry, elasticsearchClient, elasticsearchIndex)
+    new RegistryEventHandler(
+      registry,
+      elasticsearchClient,
+      swarmClient,
+      elasticsearchIndex
+    )
   );
   registryEventListener.start();
 
