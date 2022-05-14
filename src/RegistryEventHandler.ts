@@ -39,7 +39,7 @@ export class RegistryEventHandler implements IRegistryEventHandler {
 
       const scdWithId: SCDWithID = { id: id, scd: scd };
 
-      this.elasticsearchClient.index({
+      await this.elasticsearchClient.index({
         index: this.elasticsearchIndex,
         document: scdWithId,
       });
@@ -55,7 +55,7 @@ export class RegistryEventHandler implements IRegistryEventHandler {
     }
   }
 
-  private async fetchSCD(id: BigNumber): Promise<SCD> {
+  public async fetchSCD(id: BigNumber): Promise<SCD> {
     const scdMetadata = await this.registry.retrieveById(id);
     const onlyMetadata = scdMetadata.metadata;
 
@@ -74,12 +74,16 @@ export class RegistryEventHandler implements IRegistryEventHandler {
     if (url.startsWith("swarm://")) {
       scd = await this.swarmClient.fetch(url);
     } else {
-      scd = (await (await fetch(url)).json()) as SCD;
+      scd = await this.fetchFromWeb(url);
     }
 
     console.log(
       `Fetched SCD of a smart contract with the name: ${scd.name} and the contract hash: ${scd.hash}`
     );
     return scd;
+  }
+
+  private async fetchFromWeb(url: string): Promise<SCD> {
+    return await (await fetch(url)).json();
   }
 }
