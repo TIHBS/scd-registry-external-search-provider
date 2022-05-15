@@ -6,18 +6,12 @@ export class QueryService {
   private elasticsearchClient: ElasticsearchClient;
   private elasticsearchIndex: string;
 
-  constructor(
-    elasticsearchClient: ElasticsearchClient,
-    elasticsearchIndex = "scds"
-  ) {
+  constructor(elasticsearchClient: ElasticsearchClient, elasticsearchIndex = "scds") {
     this.elasticsearchClient = elasticsearchClient;
     this.elasticsearchIndex = elasticsearchIndex;
   }
 
-  async query(
-    query: string,
-    onlyIds: boolean
-  ): Promise<SCDWithID[] | BigNumberish[]> {
+  async query(query: string, onlyIds: boolean): Promise<SCDWithID[] | BigNumberish[]> {
     const esQuery = {
       multi_match: {
         query: query,
@@ -30,10 +24,8 @@ export class QueryService {
       query: esQuery,
     });
 
-    const results = hits.hits
-      .map((hit) => hit._source)
-      .filter((hit) => hit != undefined) as SCDWithID[];
+    const results = hits.hits.map(hit => hit._source).filter(hit => hit != undefined) as SCDWithID[];
 
-    return onlyIds ? results.map((scd) => scd.id) : results;
+    return onlyIds ? results.map(scd => scd.id) : results;
   }
 }

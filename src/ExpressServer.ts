@@ -16,7 +16,7 @@ export class ExpressServer {
       .use(
         cors({
           origin: "*",
-        })
+        }),
       )
       .use(bodyParser.urlencoded({ extended: false }))
       .use(bodyParser.json());
@@ -35,24 +35,16 @@ export class ExpressServer {
         }
 
         console.log(`Request with the following query ${queryStr}`);
-        const onlyIds =
-          req.query.onlyId != undefined && req.query.onlyId == "true";
-        const result = await this.queryService.query(
-          queryStr as string,
-          onlyIds
-        );
+        const onlyIds = req.query.onlyId != undefined && req.query.onlyId == "true";
+        const result = await this.queryService.query(queryStr as string, onlyIds);
         res.send(result);
       })
-      .use((_req, res) =>
-        res.status(404).json({ success: false, error: "Route not found" })
-      );
+      .use((_req, res) => res.status(404).json({ success: false, error: "Route not found" }));
   }
 
   public start() {
     this.app.listen(this.port, () => {
-      console.log(
-        `${capitalizeFirstLetter(package_json.name)} listening at ${this.port}`
-      );
+      console.log(`${capitalizeFirstLetter(package_json.name)} listening at ${this.port}`);
     });
   }
 }

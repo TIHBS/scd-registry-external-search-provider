@@ -47,11 +47,7 @@ describe("RegistryEventHandler", () => {
   });
 
   beforeEach(() => {
-    eventHandler = new RegistryEventHandler(
-      registryMock,
-      elasticsearchClientMock,
-      swarmClientMock
-    );
+    eventHandler = new RegistryEventHandler(registryMock, elasticsearchClientMock, swarmClientMock);
   });
 
   describe("onEvent", () => {
@@ -112,9 +108,7 @@ describe("RegistryEventHandler", () => {
       metadata.metadata.isValid = false;
       sinon.stub(registryMock, "retrieveById").returns(metadata);
       // @ts-ignore
-      await expect(eventHandler.fetchSCD(theId)).to.be.rejectedWith(
-        "No SCD with this id exists!"
-      );
+      await expect(eventHandler.fetchSCD(theId)).to.be.rejectedWith("No SCD with this id exists!");
     });
   });
 });

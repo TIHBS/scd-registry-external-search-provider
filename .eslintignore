@@ -1,0 +1,13 @@
+**/dist
+**/node_modules
+**/external
+**/test
+
+# files
+*.env
+*.log
+.pnp.*
+coverage.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

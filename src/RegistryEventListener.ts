@@ -25,13 +25,11 @@ export class RegistryEventListener {
   }
 
   public start() {
-    this.registry.on(this.filter, (id) => this.publish(id));
+    this.registry.on(this.filter, id => this.publish(id));
   }
 
   private publish(id: BigNumber) {
     console.log(`Registering SCD with id: ${id}`);
-    this.eventHandlers.forEach((eventHandler) =>
-      eventHandler.onEvent({ id: id })
-    );
+    this.eventHandlers.forEach(eventHandler => eventHandler.onEvent({ id: id }));
   }
 }

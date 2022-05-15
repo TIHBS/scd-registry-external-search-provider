@@ -10,9 +10,7 @@ import "dotenv/config";
 import { SwarmClient } from "./SwarmClient.js";
 
 function createElasticsearchClient(
-  elasticsearchUrl = process.env.ELASTICSEARCH_URL
-    ? process.env.ELASTICSEARCH_URL
-    : "http://localhost:9200"
+  elasticsearchUrl = process.env.ELASTICSEARCH_URL ? process.env.ELASTICSEARCH_URL : "http://localhost:9200",
 ): ElasticsearchClient {
   console.log(`Connecting to Elasticsearch at ${elasticsearchUrl}`);
   return new ElasticsearchClient({
@@ -21,9 +19,7 @@ function createElasticsearchClient(
 }
 
 async function createProvider(
-  ethereumNetworkUrl = process.env.ETHEREUM_NETWORK_URL
-    ? process.env.ETHEREUM_NETWORK_URL
-    : "http://localhost:8545"
+  ethereumNetworkUrl = process.env.ETHEREUM_NETWORK_URL ? process.env.ETHEREUM_NETWORK_URL : "http://localhost:8545",
 ) {
   console.log(`Connecting to Ethereum network at ${ethereumNetworkUrl}`);
   return await ethers.getDefaultProvider(ethereumNetworkUrl);
@@ -34,16 +30,14 @@ function createRegistryContract(
   contractAddress = process.env.REGISTRY_ADDRESS
     ? process.env.REGISTRY_ADDRESS
     : // This address seems to be the one that is used most of the time when the contract is deployed.
-      "0x222E34DA1926A9041ed5A87f71580D4D27f84fD3"
+      "0x222E34DA1926A9041ed5A87f71580D4D27f84fD3",
 ) {
   console.log(`Connecting to Registry contract at ${contractAddress}`);
   return Registry__factory.connect(contractAddress, provider);
 }
 
 function createSwarmClient(): SwarmClient {
-  const swarmUrl = process.env.SWARM_URL
-    ? process.env.SWARM_URL
-    : "http://localhost:1633";
+  const swarmUrl = process.env.SWARM_URL ? process.env.SWARM_URL : "http://localhost:1633";
   return new SwarmClient(swarmUrl);
 }
 
@@ -52,31 +46,22 @@ async function main() {
   const registry = createRegistryContract(provider);
   const elasticsearchIndex = "scds";
 
-  const registryEventListener = new RegistryEventListener(
-    registry,
-    registry.filters.ContractRegistered()
-  );
+  const registryEventListener = new RegistryEventListener(registry, registry.filters.ContractRegistered());
 
   const elasticsearchClient = createElasticsearchClient();
   const swarmClient = createSwarmClient();
   registryEventListener.subscribe(
-    new RegistryEventHandler(
-      registry,
-      elasticsearchClient,
-      swarmClient,
-      elasticsearchIndex
-    )
+    new RegistryEventHandler(registry, elasticsearchClient, swarmClient, elasticsearchIndex),
   );
   registryEventListener.start();
 
-  const queryService = new QueryService(
-    elasticsearchClient,
-    elasticsearchIndex
-  );
+  const queryService = new QueryService(elasticsearchClient, elasticsearchIndex);
   const expressServer = new ExpressServer(queryService);
 
   expressServer.registerRoutes();
   expressServer.start();
 }
 
-main().then().catch();
+main()
+  .then(() => console.log("Shut down server"))
+  .catch(err => console.error(err));

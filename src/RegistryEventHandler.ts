@@ -2,10 +2,7 @@ import { BigNumber } from "ethers";
 import { Registry } from "../external/decentralised-scd-registry-common/src/wrappers/Registry.js";
 import { IEventData, IRegistryEventHandler } from "./IRegistryEventHandler.js";
 import { Client as ElasticsearchClient } from "@elastic/elasticsearch";
-import {
-  SCD,
-  SCDWithID,
-} from "../external/decentralised-scd-registry-common/src/interfaces/SCD";
+import { SCD, SCDWithID } from "../external/decentralised-scd-registry-common/src/interfaces/SCD";
 import fetch from "node-fetch";
 import { SwarmClient } from "./SwarmClient.js";
 
@@ -18,12 +15,13 @@ export class RegistryEventHandler implements IRegistryEventHandler {
   private elasticsearchClient: ElasticsearchClient;
   private swarmClient: SwarmClient;
   private elasticsearchIndex: string;
+  name = "Registry";
 
   constructor(
     registry: Registry,
     elasticsearchClient: ElasticsearchClient,
     swarmClient: SwarmClient,
-    elasticsearchIndex = "scds"
+    elasticsearchIndex = "scds",
   ) {
     this.registry = registry;
     this.elasticsearchClient = elasticsearchClient;
@@ -47,9 +45,7 @@ export class RegistryEventHandler implements IRegistryEventHandler {
 
       return true;
     } catch (error) {
-      console.error(
-        `Could not process the SCD with the id ${id} for the following reason:`
-      );
+      console.error(`Could not process the SCD with the id ${id} for the following reason:`);
       console.error(error);
       return false;
     }
@@ -64,7 +60,7 @@ export class RegistryEventHandler implements IRegistryEventHandler {
     }
 
     console.log(
-      `Fetched metadata of an SCD from the blockchain with the name: ${onlyMetadata.name} and the signature: ${onlyMetadata.signature}`
+      `Fetched metadata of an SCD from the blockchain with the name: ${onlyMetadata.name} and the signature: ${onlyMetadata.signature}`,
     );
 
     const url = onlyMetadata.url;
@@ -77,9 +73,7 @@ export class RegistryEventHandler implements IRegistryEventHandler {
       scd = await this.fetchFromWeb(url);
     }
 
-    console.log(
-      `Fetched SCD of a smart contract with the name: ${scd.name} and the contract hash: ${scd.hash}`
-    );
+    console.log(`Fetched SCD of a smart contract with the name: ${scd.name} and the contract hash: ${scd.hash}`);
     return scd;
   }
 

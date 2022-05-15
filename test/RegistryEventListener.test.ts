@@ -52,11 +52,7 @@ describe("RegistryEventListener", () => {
 
     eventHandlers = [];
     for (let i = 0; i < 3; i++) {
-      const eventHandler = new RegistryEventHandler(
-        registryMock,
-        elasticsearchClientMock,
-        swarmClientMock
-      );
+      const eventHandler = new RegistryEventHandler(registryMock, elasticsearchClientMock, swarmClientMock);
       sinon.stub(eventHandler, "fetchFromWeb").returns(expected);
       eventHandlers.push(eventHandler);
     }
@@ -71,13 +67,13 @@ describe("RegistryEventListener", () => {
 
   it("should call 'onEvent' of all event handlers once", () => {
     const spies = [];
-    eventHandlers.forEach((handler) => {
+    eventHandlers.forEach(handler => {
       spies.push(sinon.spy(handler, "onEvent"));
       eventListener.subscribe(handler);
     });
 
     eventListener.start();
-    spies.forEach((spy) => expect(spy.calledOnce).to.be.true);
+    spies.forEach(spy => expect(spy.calledOnce).to.be.true);
   });
 
   it("should call 'onEvent' of two event handlers once", () => {
@@ -89,16 +85,16 @@ describe("RegistryEventListener", () => {
     eventListener.subscribe(eventHandlers[2]);
 
     eventListener.start();
-    spies.forEach((spy) => expect(spy.calledOnce).to.be.true);
+    spies.forEach(spy => expect(spy.calledOnce).to.be.true);
   });
 
   it("should never call 'onEvent'", () => {
     const spies = [];
-    eventHandlers.forEach((handler) => {
+    eventHandlers.forEach(handler => {
       spies.push(sinon.spy(handler, "onEvent"));
     });
 
     eventListener.start();
-    spies.forEach((spy) => expect(spy.notCalled).to.be.true);
+    spies.forEach(spy => expect(spy.notCalled).to.be.true);
   });
 });

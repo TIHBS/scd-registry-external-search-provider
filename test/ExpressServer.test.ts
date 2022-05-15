@@ -1,9 +1,6 @@
 import { ExpressServer } from "../src/ExpressServer";
 import { chai, should } from "./expect";
-import {
-  ElasticsearchEnvironment,
-  storeDocuments,
-} from "./util/ElasticsearchEnvironment";
+import { ElasticsearchEnvironment, storeDocuments } from "./util/ElasticsearchEnvironment";
 import { Client as ElasticsearchClient } from "@elastic/elasticsearch";
 import { QueryService } from "../src/QueryService";
 import { uniqueId } from "lodash";
@@ -38,7 +35,7 @@ describe("ExpressServer", () => {
   });
 
   describe("GET", () => {
-    it("should receive 404", (done) => {
+    it("should receive 404", done => {
       chai
         .request(server.app)
         .get("/asdsadadluj")

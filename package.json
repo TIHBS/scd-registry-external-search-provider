@@ -8,7 +8,10 @@
     "build": "npx tsc",
     "start": "node dist/src/main.js",
     "clean": "npx shx rm -rf dist",
-    "prebuild": "npm run clean"
+    "prebuild": "npm run clean",
+    "lint": "eslint --config .eslintrc.yml --ignore-path .eslintignore --ext .js,.ts .",
+    "prettier": "prettier --config .prettierrc --write \"**/*.{js,json,md,ts}\"",
+    "prettier:check": "prettier --check --config .prettierrc \"**/*.{js,json,md,ts}\""
   },
   "repository": {
     "type": "git",
