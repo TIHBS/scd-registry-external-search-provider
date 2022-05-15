@@ -1,6 +1,6 @@
 import expect from "./expect";
 import { Client as ElasticsearchClient } from "@elastic/elasticsearch";
-import { ElasticsearchEnvironment } from "./ElasticsearchEnvironment";
+import { ElasticsearchEnvironment } from "./util/ElasticsearchEnvironment";
 
 xdescribe("DockerComposeEnvironment", () => {
   let elasticsearchClient: ElasticsearchClient;

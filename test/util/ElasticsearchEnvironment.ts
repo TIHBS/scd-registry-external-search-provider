@@ -3,7 +3,6 @@ import {
   DockerComposeEnvironment,
   DownedDockerComposeEnvironment,
   StartedDockerComposeEnvironment,
-  StartedElasticsearchContainer,
   StoppedDockerComposeEnvironment,
   Wait,
 } from "testcontainers";
