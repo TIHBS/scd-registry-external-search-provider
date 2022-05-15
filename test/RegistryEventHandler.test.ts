@@ -1,4 +1,4 @@
-import expect from "./expect";
+import { expect } from "./expect";
 import { Client as ElasticsearchClient } from "@elastic/elasticsearch";
 import { RegistryEventHandler } from "../src/RegistryEventHandler";
 import { Registry } from "../external/decentralised-scd-registry-common/src/wrappers/Registry";

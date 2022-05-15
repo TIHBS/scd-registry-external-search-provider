@@ -6,6 +6,7 @@ import {
   StoppedDockerComposeEnvironment,
   Wait,
 } from "testcontainers";
+import { Client as ElasticsearchClient } from "@elastic/elasticsearch";
 
 export class ElasticsearchEnvironment {
   private environment:
@@ -55,4 +56,22 @@ export class ElasticsearchEnvironment {
         | StoppedDockerComposeEnvironment
     ).down();
   }
+}
+
+export async function storeDocuments(
+  elasticsearchClient: ElasticsearchClient,
+  index: string,
+  documents: Object[]
+) {
+  await Promise.all(
+    documents.map(
+      async (testDocument) =>
+        await elasticsearchClient.index({
+          index: index,
+          document: testDocument,
+        })
+    )
+  );
+
+  await elasticsearchClient.indices.refresh({ index: index });
 }

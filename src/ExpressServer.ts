@@ -1,13 +1,13 @@
 import express from "express";
 import { Express } from "express-serve-static-core/index";
-import { capitalizeFirstLetter } from "./util/Util.js";
+import { capitalizeFirstLetter } from "./util/Util";
 import package_json from "../package.json";
-import { QueryService } from "./QueryService.js";
+import { QueryService } from "./QueryService";
 import cors from "cors";
 import bodyParser from "body-parser";
 
 export class ExpressServer {
-  private app: Express;
+  public app: Express;
   private port: number;
   private queryService: QueryService;
 

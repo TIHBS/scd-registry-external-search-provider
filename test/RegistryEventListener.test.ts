@@ -4,7 +4,7 @@ import { SwarmClient } from "../src/SwarmClient";
 import { Client as ElasticsearchClient } from "@elastic/elasticsearch";
 import { RegistryEventListener } from "../src/RegistryEventListener";
 import * as sinon from "sinon";
-import { expect } from "chai";
+import { expect } from "./expect";
 import { BigNumber } from "ethers";
 
 describe("RegistryEventListener", () => {
