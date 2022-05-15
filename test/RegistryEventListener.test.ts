@@ -42,6 +42,7 @@ describe("RegistryEventListener", () => {
 
     registryMock = {
       retrieveById: () => {},
+      // @ts-ignore
       on: (args: any | any[]) => eventListener.publish(BigNumber.from(8)),
     } as any as Registry;
 

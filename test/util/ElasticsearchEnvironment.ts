@@ -15,7 +15,7 @@ export class ElasticsearchEnvironment {
     | DownedDockerComposeEnvironment;
   private static containerName = "elasticsearch";
   constructor() {
-    const composeFilePath = resolve(__dirname, "..");
+    const composeFilePath = resolve(__dirname, ".");
     const composeFile = "docker-compose.yml";
 
     this.environment = new DockerComposeEnvironment(

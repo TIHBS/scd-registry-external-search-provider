@@ -14,8 +14,7 @@
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "hardhat.telemetry": false,
   "mochaExplorer.files": ["test/**/*.ts"],
   "mochaExplorer.timeout": 30000,
-  "mochaExplorer.require": ["ts-node/register/transpile-only", "ethers"]
+  "mochaExplorer.require": ["ts-node/register/transpile-only", "test/hooks.ts"]
 }

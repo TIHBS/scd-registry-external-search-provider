@@ -1,4 +1,5 @@
 import { Client as ElasticsearchClient } from "@elastic/elasticsearch";
+import { BigNumberish } from "ethers";
 import { SCDWithID } from "../external/decentralised-scd-registry-common/src/interfaces/SCD";
 
 export class QueryService {
@@ -13,7 +14,10 @@ export class QueryService {
     this.elasticsearchIndex = elasticsearchIndex;
   }
 
-  async query(query: string): Promise<SCDWithID[]> {
+  async query(
+    query: string,
+    onlyIds: boolean
+  ): Promise<SCDWithID[] | BigNumberish[]> {
     const esQuery = {
       multi_match: {
         query: query,
@@ -30,6 +34,6 @@ export class QueryService {
       .map((hit) => hit._source)
       .filter((hit) => hit != undefined) as SCDWithID[];
 
-    return results;
+    return onlyIds ? results.map((scd) => scd.id) : results;
   }
 }

@@ -92,6 +92,7 @@ describe("RegistryEventHandler", () => {
       metadata.metadata.url = "swarm://efsfeskfjesfnsekjfbeslkj";
       sinon.stub(registryMock, "retrieveById").returns(metadata);
       sinon.stub(swarmClientMock, "fetch").returns(expected);
+      // @ts-ignore
       const result = await eventHandler.fetchSCD(theId);
       expect(result).to.deep.equal(expected);
     });
@@ -101,6 +102,7 @@ describe("RegistryEventHandler", () => {
       metadata.metadata.url = "http://localhost:4242";
       sinon.stub(registryMock, "retrieveById").returns(metadata);
       sinon.stub(eventHandler, "fetchFromWeb").returns(expected);
+      // @ts-ignore
       const result = await eventHandler.fetchSCD(theId);
       expect(result).to.deep.equal(expected);
     });
@@ -109,6 +111,7 @@ describe("RegistryEventHandler", () => {
       const metadata = cloneDeep(theMetadata);
       metadata.metadata.isValid = false;
       sinon.stub(registryMock, "retrieveById").returns(metadata);
+      // @ts-ignore
       await expect(eventHandler.fetchSCD(theId)).to.be.rejectedWith(
         "No SCD with this id exists!"
       );
