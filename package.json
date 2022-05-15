@@ -23,6 +23,7 @@
   "devDependencies": {
     "@types/app-root-dir": "^0.1.1",
     "@types/chai": "^4.3.1",
+    "@types/chai-as-promised": "^7.1.5",
     "@types/cors": "^2.8.12",
     "@types/elasticsearch": "^5.0.40",
     "@types/expect": "^24.3.0",
@@ -34,6 +35,7 @@
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
     "chai": "^4.3.6",
+    "chai-as-promised": "^7.1.1",
     "cross-env": "^7.0.3",
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.5.0",
