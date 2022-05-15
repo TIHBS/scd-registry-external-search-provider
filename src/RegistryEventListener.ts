@@ -29,7 +29,7 @@ export class RegistryEventListener {
   }
 
   private publish(id: BigNumber) {
-    console.log(`Registered SCD with id: ${id}`);
+    console.log(`Registering SCD with id: ${id}`);
     this.eventHandlers.forEach((eventHandler) =>
       eventHandler.onEvent({ id: id })
     );

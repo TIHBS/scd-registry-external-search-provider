@@ -55,7 +55,7 @@ export class RegistryEventHandler implements IRegistryEventHandler {
     }
   }
 
-  public async fetchSCD(id: BigNumber): Promise<SCD> {
+  private async fetchSCD(id: BigNumber): Promise<SCD> {
     const scdMetadata = await this.registry.retrieveById(id);
     const onlyMetadata = scdMetadata.metadata;
 
