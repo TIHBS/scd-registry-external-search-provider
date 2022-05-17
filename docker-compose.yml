@@ -17,10 +17,6 @@ services:
       - "3000:3000"
     depends_on:
       - elasticsearch
-    networks:
-      - decentralised-scd-registry_ethereum-network
-      - host
-      - default
 
   # Elasticsearch Docker Images: https://www.docker.elastic.co/
   elasticsearch:
@@ -43,17 +39,7 @@ services:
     ports:
       - "9200:9200"
       - "9300:9300"
-    networks:
-      - default
 
 volumes:
   elasticsearch-data:
     driver: local
-
-networks:
-  default:
-    driver: bridge
-  decentralised-scd-registry_ethereum-network:
-    external: true
-  host:
-    external: true
