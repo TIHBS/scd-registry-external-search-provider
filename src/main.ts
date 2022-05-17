@@ -41,8 +41,8 @@ function createRegistryContract(
 }
 
 function createSwarmClient(): SwarmClient {
-  const swarmUrl = process.env.SWARM_URL
-    ? process.env.SWARM_URL
+  const swarmUrl = process.env.SWARM_API
+    ? process.env.SWARM_API
     : "http://localhost:1633";
   return new SwarmClient(swarmUrl);
 }
