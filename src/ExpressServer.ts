@@ -1,6 +1,6 @@
 import express from "express";
 import { Express } from "express-serve-static-core/index";
-import { capitalizeFirstLetter } from "./util/Util";
+import { capitalizeFirstLetter } from "../external/decentralised-scd-registry-common/src/util/String";
 import package_json from "../package.json";
 import { QueryService } from "./QueryService";
 import cors from "cors";
