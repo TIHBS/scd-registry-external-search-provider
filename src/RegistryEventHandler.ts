@@ -86,4 +86,21 @@ export class RegistryEventHandler implements IRegistryEventHandler {
   private async fetchFromWeb(url: string): Promise<SCD> {
     return await (await fetch(url)).json();
   }
+
+  public async createIndex() {
+    if (
+      await this.elasticsearchClient.indices.exists({
+        index: this.elasticsearchIndex,
+      })
+    ) {
+      console.log(`The index ${this.elasticsearchIndex} does already exist.`);
+      return false;
+    }
+
+    console.log(`Created the ${this.elasticsearchIndex} index.`);
+    const createdIndex = await this.elasticsearchClient.indices.create({
+      index: this.elasticsearchIndex,
+    });
+    return createdIndex;
+  }
 }

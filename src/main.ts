@@ -59,14 +59,14 @@ async function main() {
 
   const elasticsearchClient = createElasticsearchClient();
   const swarmClient = createSwarmClient();
-  registryEventListener.subscribe(
-    new RegistryEventHandler(
-      registry,
-      elasticsearchClient,
-      swarmClient,
-      elasticsearchIndex
-    )
+  const eventHandler = new RegistryEventHandler(
+    registry,
+    elasticsearchClient,
+    swarmClient,
+    elasticsearchIndex
   );
+  eventHandler.createIndex();
+  registryEventListener.subscribe(eventHandler);
   registryEventListener.start();
 
   const queryService = new QueryService(
