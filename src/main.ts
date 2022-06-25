@@ -9,15 +9,24 @@ import { QueryService } from "./QueryService.js";
 import "dotenv/config";
 import { SwarmClient } from "./SwarmClient.js";
 
-function createElasticsearchClient(
+async function createElasticsearchClient(
   elasticsearchUrl = process.env.ELASTICSEARCH_URL
     ? process.env.ELASTICSEARCH_URL
     : "http://localhost:9200"
-): ElasticsearchClient {
+): Promise<ElasticsearchClient> {
   console.log(`Connecting to Elasticsearch at ${elasticsearchUrl}`);
-  return new ElasticsearchClient({
+
+  const esClient = new ElasticsearchClient({
     node: elasticsearchUrl,
   });
+
+  let connected = false;
+  while (!connected) {
+    try {
+      connected = await esClient.ping();
+    } catch (e) {}
+  }
+  return esClient;
 }
 
 async function createProvider(
@@ -57,7 +66,7 @@ async function main() {
     registry.filters.ContractRegistered()
   );
 
-  const elasticsearchClient = createElasticsearchClient();
+  const elasticsearchClient = await createElasticsearchClient();
   const swarmClient = createSwarmClient();
   const eventHandler = new RegistryEventHandler(
     registry,
