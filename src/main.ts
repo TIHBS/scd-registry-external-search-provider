@@ -30,8 +30,8 @@ async function createElasticsearchClient(
 }
 
 async function createProvider(
-  ethereumNetworkUrl = process.env.ETHEREUM_NETWORK_URL
-    ? process.env.ETHEREUM_NETWORK_URL
+  ethereumNetworkUrl = process.env.NETWORKISH
+    ? process.env.NETWORKISH
     : "http://localhost:8545"
 ) {
   console.log(`Connecting to Ethereum network at ${ethereumNetworkUrl}`);

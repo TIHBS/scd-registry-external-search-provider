@@ -10,7 +10,7 @@ services:
     restart: unless-stopped
     environment:
       - ELASTICSEARCH_URL=${ELASTICSEARCH_URL:-http://elasticsearch:9200}
-      - ETHEREUM_NETWORK_URL=${ETHEREUM_NETWORK_URL:-http://localhost:8545}
+      - NETWORKISH=${NETWORKISH:-http://localhost:8545}
       - SWARM_API=${SWARM_API:-http://localhost:1633}
       - REGISTRY_ADDRESS=${REGISTRY_ADDRESS:-0x222E34DA1926A9041ed5A87f71580D4D27f84fD3}
     ports:
