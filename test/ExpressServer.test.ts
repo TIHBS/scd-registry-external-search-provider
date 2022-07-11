@@ -1,5 +1,5 @@
 import { ExpressServer } from "../src/ExpressServer";
-import { chai, should } from "./expect";
+import { chai } from "./expect";
 import {
   ElasticsearchEnvironment,
   storeDocuments,

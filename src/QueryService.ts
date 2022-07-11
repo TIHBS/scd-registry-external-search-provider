@@ -1,6 +1,6 @@
 import { Client as ElasticsearchClient } from "@elastic/elasticsearch";
 import { BigNumberish } from "ethers";
-import { SCDWithID } from "../external/decentralised-scd-registry-common/src/interfaces/SCD";
+import { SCDWithID } from "../external/scd-registry-common/src/interfaces/SCD";
 
 export class QueryService {
   private elasticsearchClient: ElasticsearchClient;

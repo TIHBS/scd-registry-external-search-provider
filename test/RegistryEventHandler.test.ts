@@ -1,7 +1,7 @@
 import { expect } from "./expect";
 import { Client as ElasticsearchClient } from "@elastic/elasticsearch";
 import { RegistryEventHandler } from "../src/RegistryEventHandler";
-import { Registry } from "../external/decentralised-scd-registry-common/src/wrappers/Registry";
+import { Registry } from "../external/scd-registry-common/src/wrappers/Registry";
 import { SwarmClient } from "../src/SwarmClient";
 import * as sinon from "sinon";
 import { BigNumber } from "ethers";

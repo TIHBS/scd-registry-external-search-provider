@@ -1,11 +1,11 @@
 import { BigNumber } from "ethers";
-import { Registry } from "../external/decentralised-scd-registry-common/src/wrappers/Registry.js";
+import { Registry } from "../external/scd-registry-common/src/wrappers/Registry.js";
 import { IEventData, IRegistryEventHandler } from "./IRegistryEventHandler.js";
 import { Client as ElasticsearchClient } from "@elastic/elasticsearch";
 import {
   SCD,
   SCDWithID,
-} from "../external/decentralised-scd-registry-common/src/interfaces/SCD";
+} from "../external/scd-registry-common/src/interfaces/SCD";
 import fetch from "node-fetch";
 import { SwarmClient } from "./SwarmClient.js";
 

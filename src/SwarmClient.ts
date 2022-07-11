@@ -1,5 +1,5 @@
 import { Bee, Reference } from "@ethersphere/bee-js";
-import { SCD } from "../external/decentralised-scd-registry-common/src/interfaces/SCD";
+import { SCD } from "../external/scd-registry-common/src/interfaces/SCD";
 
 export class SwarmClient {
   private swarmUrl: string;

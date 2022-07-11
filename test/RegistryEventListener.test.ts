@@ -1,4 +1,4 @@
-import { Registry } from "../external/decentralised-scd-registry-common/src/wrappers/Registry";
+import { Registry } from "../external/scd-registry-common/src/wrappers/Registry";
 import { RegistryEventHandler } from "../src/RegistryEventHandler";
 import { SwarmClient } from "../src/SwarmClient";
 import { Client as ElasticsearchClient } from "@elastic/elasticsearch";

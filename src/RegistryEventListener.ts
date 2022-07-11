@@ -2,7 +2,7 @@ import { BigNumber } from "ethers";
 import {
   ContractRegisteredEventFilter,
   Registry,
-} from "../external/decentralised-scd-registry-common/src/wrappers/Registry.js";
+} from "../external/scd-registry-common/src/wrappers/Registry.js";
 import { IRegistryEventHandler } from "./IRegistryEventHandler.js";
 
 export class RegistryEventListener {
