@@ -4,3 +4,6 @@
 [submodule "external/decentralised-scd-registry-common"]
 	path = external/decentralised-scd-registry-common
 	url = git@github.com:GarondEisenfaust/decentralised-scd-registry-common.git
+[submodule "external/scd-registry-common"]
+	path = external/scd-registry-common
+	url = git@github.com:GarondEisenfaust/scd-registry-common.git
