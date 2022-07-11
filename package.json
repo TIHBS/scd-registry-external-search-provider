@@ -1,5 +1,5 @@
 {
-  "name": "external-search-provider",
+  "name": "scd-registry-external-search-provider",
   "version": "1.0.0",
   "description": "",
   "main": "dist/src/main.js",
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GarondEisenfaust/external-search-provider.git"
+    "url": "git+https://github.com/GarondEisenfaust/scd-registry-external-search-provider.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/GarondEisenfaust/external-search-provider/issues"
+    "url": "https://github.com/GarondEisenfaust/scd-registry-external-search-provider/issues"
   },
-  "homepage": "https://github.com/GarondEisenfaust/external-search-provider#readme",
+  "homepage": "https://github.com/GarondEisenfaust/scd-registry-external-search-provider#readme",
   "devDependencies": {
     "@types/app-root-dir": "^0.1.1",
     "@types/chai": "^4.3.1",

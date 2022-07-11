@@ -2,11 +2,11 @@ version: "3.7"
 services:
   # It is impossible to store scds with an localhost url when using this comopse file.
   # Use the external IP of the storage device.
-  external-search-provider:
-    container_name: external-search-provider
+  scd-registry-external-search-provider:
+    container_name: scd-registry-external-search-provider
     build:
       context: .
-      dockerfile: docker/external-search-provider/Dockerfile
+      dockerfile: docker/scd-registry-external-search-provider/Dockerfile
     restart: unless-stopped
     environment:
       - ELASTICSEARCH_URL=${ELASTICSEARCH_URL:-http://elasticsearch:9200}
