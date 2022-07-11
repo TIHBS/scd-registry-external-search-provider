@@ -2,6 +2,18 @@
 
 This repository contains the External Search Provider.
 It connects Elasticsearch to the rest of the SCD registry. 
+This repository contains submodules.
+Thus, users should clone this repository by running:
+
+```bash
+git clone --recurse-submodules -j8 git@github.com:GarondEisenfaust/scd-registry-meta.git
+```
+
+Or after cloning, it users should run:
+
+```bash
+git submodule update --init --recursive
+```
 
 ## Requirements
 
