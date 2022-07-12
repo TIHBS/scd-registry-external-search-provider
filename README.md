@@ -6,7 +6,7 @@ This repository contains submodules.
 Thus, users should clone this repository by running:
 
 ```bash
-git clone --recurse-submodules -j8 git@github.com:GarondEisenfaust/scd-registry-external-search-provider.git
+git clone --recurse-submodules -j8 https://github.com/TIHBS/scd-registry-external-search-provider.git
 ```
 
 Or after cloning, it users should run:
