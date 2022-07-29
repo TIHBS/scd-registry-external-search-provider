@@ -4,10 +4,12 @@ import { IEventData, IRegistryEventHandler } from "./IRegistryEventHandler.js";
 import { Client as ElasticsearchClient } from "@elastic/elasticsearch";
 import {
   SCD,
-  SCDWithID,
+  SCDWithIDAndMetadata,
 } from "../external/scd-registry-common/src/interfaces/SCD";
 import fetch from "node-fetch";
 import { SwarmClient } from "./SwarmClient.js";
+import { Metadata } from "../external/scd-registry-common/src/interfaces/Metadata.js";
+import { fromContractType } from "../external/scd-registry-common/src/Conversion";
 
 interface EventData {
   id: BigNumber;
@@ -35,13 +37,17 @@ export class RegistryEventHandler implements IRegistryEventHandler {
     const id = (eventData as EventData).id;
 
     try {
-      const scd = await this.fetchSCD(id);
+      const [scd, metadata] = await this.fetchSCDAndMetadata(id);
 
-      const scdWithId: SCDWithID = { id: id, scd: scd };
+      const scdWithIdAndMetadata: SCDWithIDAndMetadata = {
+        id: id,
+        scd: scd,
+        metadata: metadata,
+      };
 
       await this.elasticsearchClient.index({
         index: this.elasticsearchIndex,
-        document: scdWithId,
+        document: scdWithIdAndMetadata,
       });
       console.log(`Stored ${scd.name}`);
 
@@ -55,7 +61,7 @@ export class RegistryEventHandler implements IRegistryEventHandler {
     }
   }
 
-  private async fetchSCD(id: BigNumber): Promise<SCD> {
+  private async fetchSCDAndMetadata(id: BigNumber): Promise<[SCD, Metadata]> {
     const scdMetadata = await this.registry.retrieveById(id);
     const onlyMetadata = scdMetadata.metadata;
 
@@ -80,7 +86,7 @@ export class RegistryEventHandler implements IRegistryEventHandler {
     console.log(
       `Fetched SCD of a smart contract with the name: ${scd.name} and the contract hash: ${scd.hash}`
     );
-    return scd;
+    return [scd, fromContractType(onlyMetadata)];
   }
 
   private async fetchFromWeb(url: string): Promise<SCD> {

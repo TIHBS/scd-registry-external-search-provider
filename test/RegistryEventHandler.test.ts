@@ -93,8 +93,8 @@ describe("RegistryEventHandler", () => {
       sinon.stub(registryMock, "retrieveById").returns(metadata);
       sinon.stub(swarmClientMock, "fetch").returns(expected);
       // @ts-ignore
-      const result = await eventHandler.fetchSCD(theId);
-      expect(result).to.deep.equal(expected);
+      const result = await eventHandler.fetchSCDAndMetadata(theId);
+      expect(result[0]).to.deep.equal(expected);
     });
 
     it("should fetch the scd from a webserver", async () => {
@@ -103,8 +103,9 @@ describe("RegistryEventHandler", () => {
       sinon.stub(registryMock, "retrieveById").returns(metadata);
       sinon.stub(eventHandler, "fetchFromWeb").returns(expected);
       // @ts-ignore
-      const result = await eventHandler.fetchSCD(theId);
-      expect(result).to.deep.equal(expected);
+      const result = await eventHandler.fetchSCDAndMetadata(theId);
+      console.log(result);
+      expect(result[0]).to.deep.equal(expected);
     });
 
     it("should should be rejected because the SCD is invalid", async () => {
@@ -112,9 +113,8 @@ describe("RegistryEventHandler", () => {
       metadata.metadata.isValid = false;
       sinon.stub(registryMock, "retrieveById").returns(metadata);
       // @ts-ignore
-      await expect(eventHandler.fetchSCD(theId)).to.be.rejectedWith(
-        "No SCD with this id exists!"
-      );
+      const result = eventHandler.fetchSCDAndMetadata(theId);
+      await expect(result).to.be.rejectedWith("No SCD with this id exists!");
     });
   });
 });

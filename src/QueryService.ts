@@ -1,6 +1,6 @@
 import { Client as ElasticsearchClient } from "@elastic/elasticsearch";
 import { BigNumberish } from "ethers";
-import { SCDWithID } from "../external/scd-registry-common/src/interfaces/SCD";
+import { SCDWithIDAndMetadata } from "../external/scd-registry-common/src/interfaces/SCD";
 
 export class QueryService {
   private elasticsearchClient: ElasticsearchClient;
@@ -17,7 +17,7 @@ export class QueryService {
   async query(
     query: string,
     onlyIds: boolean
-  ): Promise<SCDWithID[] | BigNumberish[]> {
+  ): Promise<SCDWithIDAndMetadata[] | BigNumberish[]> {
     const esQuery = {
       multi_match: {
         query: query,
@@ -25,14 +25,15 @@ export class QueryService {
       },
     };
 
-    const { hits } = await this.elasticsearchClient.search<SCDWithID>({
-      index: this.elasticsearchIndex,
-      query: esQuery,
-    });
+    const { hits } =
+      await this.elasticsearchClient.search<SCDWithIDAndMetadata>({
+        index: this.elasticsearchIndex,
+        query: esQuery,
+      });
 
     const results = hits.hits
       .map((hit) => hit._source)
-      .filter((hit) => hit != undefined) as SCDWithID[];
+      .filter((hit) => hit != undefined) as SCDWithIDAndMetadata[];
 
     return onlyIds ? results.map((scd) => scd.id) : results;
   }
